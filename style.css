@@ -1,0 +1,39 @@
+:root {
+--HEXgold: #fbd324;
+--HEXtangerine: #f48c14;
+--HEXgunmetal: #172228;
+--HEXcool-gray: #8c9cba;
+--HEXyale-blue: #14366f;
+--HEXoxford-blue: #0a1833;
+--HEXivory: #f9f7e9;
+
+--RGBgold: 251, 211, 36;
+--RGBtangerine: 244, 140, 20;
+--RGBgunmetal: 23, 34, 40;
+--RGBcool-gray: 40, 156, 186;
+--RGByale-blue: 20, 54, 111;
+--RGBivory: 249, 247, 233;
+--RGBoxford-blue: 10, 24, 51;
+}
+
+body {
+    background-color: var(--HEXoxford-blue);
+    background-image: url(/images/pexels-johannes-plenio-1118873.jpg);
+}
+
+header {
+
+}
+
+main {
+    
+}
+
+footer {
+
+}
+
+#app {
+    min-width: 99%;
+    min-height: 80%;
+}
