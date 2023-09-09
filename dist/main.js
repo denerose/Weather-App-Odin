@@ -17,7 +17,7 @@ var Display;
   const app = document.getElementById("app");
   function updateImage() {
     app.style.backgroundImage = "url('images/pexels-chris-f-1465088.jpg')";
-    Weather.fetchWeather();
+    Weather.fetchWeather("Ballarat");
   }
   Display2.updateImage = updateImage;
 })(Display || (Display = {}));
