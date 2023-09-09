@@ -1,0 +1,14 @@
+{
+  "name": "weather-app-odin",
+  "version": "1.0.0",
+  "description": "Weather app created as part of The Odin Project Javascript learning path. Learning how to use API inputs.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^7.2.0"
+  }
+}
