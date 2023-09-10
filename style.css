@@ -19,6 +19,8 @@
 body {
     background-color: var(--HEXoxford-blue);
     background-image: url(/images/pexels-johannes-plenio-1118873.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 header {
@@ -35,5 +37,4 @@ footer {
 
 #app {
     min-width: 99%;
-    min-height: 80%;
-}
+    min-height: 80%;}

@@ -8,9 +8,11 @@ export module Display {
         const tempSpan = document.getElementById("tempSpan") as HTMLSpanElement
         await Weather.fetchWeather('Ballarat')
         tempSpan.innerText = String(Weather.getTempC())
+        updateImage(await Weather.findIconRef())
     }
 
-    function updateImage() {
-        app.style.backgroundImage = "url('images/pexels-chris-f-1465088.jpg')"
+    function updateImage(iconCode) {
+        const icon = document.getElementById("weatherIcon") as HTMLImageElement
+        icon.src = String('images/icons/day/'+iconCode+'.png')
     }
 }

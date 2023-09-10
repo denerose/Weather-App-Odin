@@ -41,7 +41,7 @@ export module Weather {
             "gust_kph": number
         }
     }
-    
+
     let weather: WeatherType
 
     export async function fetchWeather(location: string): Promise<WeatherType> {
@@ -56,5 +56,20 @@ export module Weather {
 
     export function getTempC() {
         return (weather.current.temp_c)
+    }
+
+    export async function findIconRef() {
+        const code = weather.current.condition.code
+        const weatherTableResponse = await fetch('/weather_conditions.json')
+        const weatherTableJson = await weatherTableResponse.json() as {
+            code :number
+            day :string
+            night : string
+            icon : number
+        }[]
+        const findCode = await weatherTableJson.find((item => {if (item.code === code) return true}))
+        console.log(code, findCode.icon)
+        const iconRef =  findCode.icon
+        return(String(iconRef))
     }
 }

@@ -16,6 +16,19 @@ var Weather;
     return weather.current.temp_c;
   }
   Weather2.getTempC = getTempC;
+  async function findIconRef() {
+    const code = weather.current.condition.code;
+    const weatherTableResponse = await fetch("/weather_conditions.json");
+    const weatherTableJson = await weatherTableResponse.json();
+    const findCode = await weatherTableJson.find((item) => {
+      if (item.code === code)
+        return true;
+    });
+    console.log(code, findCode.icon);
+    const iconRef = findCode.icon;
+    return String(iconRef);
+  }
+  Weather2.findIconRef = findIconRef;
 })(Weather || (Weather = {}));
 
 // src/display.ts
@@ -26,10 +39,12 @@ var Display;
     const tempSpan = document.getElementById("tempSpan");
     await Weather.fetchWeather("Ballarat");
     tempSpan.innerText = String(Weather.getTempC());
+    updateImage(await Weather.findIconRef());
   }
   Display2.updateWeather = updateWeather;
-  function updateImage() {
-    app.style.backgroundImage = "url('images/pexels-chris-f-1465088.jpg')";
+  function updateImage(iconCode) {
+    const icon = document.getElementById("weatherIcon");
+    icon.src = String("images/icons/day/" + iconCode + ".png");
   }
 })(Display || (Display = {}));
 
