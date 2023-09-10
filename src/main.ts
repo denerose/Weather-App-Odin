@@ -1,7 +1,7 @@
 import { Display } from "./display"
 
 function main() {
-    Display.updateImage();
+    Display.updateWeather();
 }
 
 main()
