@@ -12,6 +12,10 @@
 <body>
     <header>
         <h1>Weather App</h1>
+        <span>C  </span><label class="switch">
+            <input type="checkbox" id="cf">
+            <span class="slider"></span>
+          </label><span>  F</span>
     </header>
     <main id="main">
         <form id="searchForm">
@@ -23,7 +27,8 @@
         <div id="app">
             <h2 id="cityHeading"></h2>
             <div><img id="weatherIcon" src=""></div>
-            <p>Temp: <span id="tempSpan"></span></p>
+            <p>Temp: <span id="tempSpan"></span>
+                <br/>(feels like: <span id="feelSpan"></span>)</p>
         </div>
     </main>
     <footer>

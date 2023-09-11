@@ -74,6 +74,18 @@ export module Weather {
         return (weather.current.temp_c)
     }
 
+    export function getFeelsLikeC() {
+        return (weather.current.feelslike_c)
+    }
+
+    export function getTempF() {
+        return (weather.current.temp_f)
+    }
+
+    export function getFeelsLikeF() {
+        return (weather.current.feelslike_f)
+    }
+
     export function getReturnedLocation() {
         return (`${weather.location.name}, ${weather.location.country}`)
     }

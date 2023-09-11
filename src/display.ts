@@ -3,14 +3,26 @@ import { Weather } from "./weather"
 export module Display {
 
     const app = document.getElementById('app') as HTMLDivElement
+    let toggleCelsius = true
 
     export async function updateWeather(searchLocation) {
-        const tempSpan = document.getElementById("tempSpan") as HTMLSpanElement
         await Weather.fetchWeather(searchLocation)
-        tempSpan.innerText = String(await Weather.getTempC())
+        await setTemp()
         const returnedLocation = await Weather.getReturnedLocation()
         updateLocation(returnedLocation);
         updateImage(await Weather.findIconRef())
+    }
+
+    function setTemp() {
+    const tempSpan = document.getElementById("tempSpan") as HTMLSpanElement
+        const feelSpan = document.getElementById("feelSpan") as HTMLSpanElement
+        if (toggleCelsius) {
+            tempSpan.innerText = String(Weather.getTempC()) + " ℃"
+            feelSpan.innerText = String(Weather.getFeelsLikeC()) + " ℃"
+        } else {
+            tempSpan.innerText = String(Weather.getTempF()) + " ℉"
+            feelSpan.innerText = String(Weather.getFeelsLikeF()) + " ℉"
+        }
     }
 
     function updateImage(iconCode) {
@@ -32,6 +44,11 @@ export module Display {
         form.addEventListener("submit", (event) => {
             event.preventDefault()
             search(form.searchInput.value)
+        })
+        const toggle = document.getElementById("cf") as HTMLInputElement
+        toggle.addEventListener("click", () => {
+            toggleCelsius = !toggleCelsius
+            setTemp()
         })
     }
 }

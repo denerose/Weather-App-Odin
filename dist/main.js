@@ -23,6 +23,18 @@ var Weather;
     return weather.current.temp_c;
   }
   Weather2.getTempC = getTempC;
+  function getFeelsLikeC() {
+    return weather.current.feelslike_c;
+  }
+  Weather2.getFeelsLikeC = getFeelsLikeC;
+  function getTempF() {
+    return weather.current.temp_f;
+  }
+  Weather2.getTempF = getTempF;
+  function getFeelsLikeF() {
+    return weather.current.feelslike_f;
+  }
+  Weather2.getFeelsLikeF = getFeelsLikeF;
   function getReturnedLocation() {
     return `${weather.location.name}, ${weather.location.country}`;
   }
@@ -47,15 +59,26 @@ var Weather;
 var Display;
 ((Display2) => {
   const app = document.getElementById("app");
+  let toggleCelsius = true;
   async function updateWeather(searchLocation) {
-    const tempSpan = document.getElementById("tempSpan");
     await Weather.fetchWeather(searchLocation);
-    tempSpan.innerText = String(await Weather.getTempC());
+    await setTemp();
     const returnedLocation = await Weather.getReturnedLocation();
     updateLocation(returnedLocation);
     updateImage(await Weather.findIconRef());
   }
   Display2.updateWeather = updateWeather;
+  function setTemp() {
+    const tempSpan = document.getElementById("tempSpan");
+    const feelSpan = document.getElementById("feelSpan");
+    if (toggleCelsius) {
+      tempSpan.innerText = String(Weather.getTempC()) + " \u2103";
+      feelSpan.innerText = String(Weather.getFeelsLikeC()) + " \u2103";
+    } else {
+      tempSpan.innerText = String(Weather.getTempF()) + " \u2109";
+      feelSpan.innerText = String(Weather.getFeelsLikeF()) + " \u2109";
+    }
+  }
   function updateImage(iconCode) {
     const icon = document.getElementById("weatherIcon");
     icon.src = String("images/icons/day/" + iconCode + ".png");
@@ -72,6 +95,11 @@ var Display;
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       search(form.searchInput.value);
+    });
+    const toggle = document.getElementById("cf");
+    toggle.addEventListener("click", () => {
+      toggleCelsius = !toggleCelsius;
+      setTemp();
     });
   }
   Display2.addEvents = addEvents;
