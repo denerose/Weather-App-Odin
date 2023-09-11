@@ -59,7 +59,6 @@ export module Weather {
     codes = weatherTableJson
 }
 
-
     export async function fetchWeather(location: string): Promise<WeatherType> {
         const apiURL = 'https://api.weatherapi.com/v1/'
         const urlToCall = new URL('current.json?key=080bba987e614b42b5f04304230909&q=' + location + '&aqi=no', apiURL)
@@ -100,5 +99,11 @@ export module Weather {
             return (String(iconRef))
         }
         else throw Error('weather code undefined')
+    }
+
+    export function isDay () {
+        if (weather.current.is_day === 0) {
+            return('night')
+        } else {return('day')}
     }
 }

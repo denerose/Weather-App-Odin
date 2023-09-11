@@ -27,7 +27,11 @@ export module Display {
 
     function updateImage(iconCode) {
         const icon = document.getElementById("weatherIcon") as HTMLImageElement
-        icon.src = String('images/icons/day/'+iconCode+'.png')
+        if (Weather.isDay() === 'night') {
+            icon.src = String('images/icons/night/'+iconCode+'.png')
+        } else {
+            icon.src = String('images/icons/day/'+iconCode+'.png')
+        }
     }
 
     function updateLocation(location) {

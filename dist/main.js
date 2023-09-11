@@ -53,6 +53,14 @@ var Weather;
       throw Error("weather code undefined");
   }
   Weather2.findIconRef = findIconRef;
+  function isDay() {
+    if (weather.current.is_day === 0) {
+      return "night";
+    } else {
+      return "day";
+    }
+  }
+  Weather2.isDay = isDay;
 })(Weather || (Weather = {}));
 
 // src/display.ts
@@ -81,7 +89,11 @@ var Display;
   }
   function updateImage(iconCode) {
     const icon = document.getElementById("weatherIcon");
-    icon.src = String("images/icons/day/" + iconCode + ".png");
+    if (Weather.isDay() === "night") {
+      icon.src = String("images/icons/night/" + iconCode + ".png");
+    } else {
+      icon.src = String("images/icons/day/" + iconCode + ".png");
+    }
   }
   function updateLocation(location) {
     const locationSpan = document.getElementById("locationSpan");
