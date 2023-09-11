@@ -2,6 +2,13 @@
 var Weather;
 ((Weather2) => {
   let weather;
+  let codes;
+  async function getCodes() {
+    const weatherTableResponse = await fetch("/weather_conditions.json");
+    const weatherTableJson = await weatherTableResponse.json();
+    codes = weatherTableJson;
+  }
+  Weather2.getCodes = getCodes;
   async function fetchWeather(location) {
     const apiURL = "https://api.weatherapi.com/v1/";
     const urlToCall = new URL("current.json?key=080bba987e614b42b5f04304230909&q=" + location + "&aqi=no", apiURL);
@@ -16,17 +23,22 @@ var Weather;
     return weather.current.temp_c;
   }
   Weather2.getTempC = getTempC;
+  function getReturnedLocation() {
+    return `${weather.location.name}, ${weather.location.country}`;
+  }
+  Weather2.getReturnedLocation = getReturnedLocation;
   async function findIconRef() {
     const code = weather.current.condition.code;
-    const weatherTableResponse = await fetch("/weather_conditions.json");
-    const weatherTableJson = await weatherTableResponse.json();
-    const findCode = await weatherTableJson.find((item) => {
+    const findCode = await codes.find((item) => {
       if (item.code === code)
         return true;
     });
-    console.log(code, findCode.icon);
-    const iconRef = findCode.icon;
-    return String(iconRef);
+    if (findCode !== void 0) {
+      console.log(code, findCode.icon);
+      const iconRef = findCode.icon;
+      return String(iconRef);
+    } else
+      throw Error("weather code undefined");
   }
   Weather2.findIconRef = findIconRef;
 })(Weather || (Weather = {}));
@@ -35,10 +47,13 @@ var Weather;
 var Display;
 ((Display2) => {
   const app = document.getElementById("app");
+  let searchLocation = "Ballarat";
   async function updateWeather() {
     const tempSpan = document.getElementById("tempSpan");
-    await Weather.fetchWeather("Ballarat");
-    tempSpan.innerText = String(Weather.getTempC());
+    await Weather.fetchWeather(searchLocation);
+    tempSpan.innerText = String(await Weather.getTempC());
+    const returnedLocation = await Weather.getReturnedLocation();
+    updateLocation(returnedLocation);
     updateImage(await Weather.findIconRef());
   }
   Display2.updateWeather = updateWeather;
@@ -46,10 +61,15 @@ var Display;
     const icon = document.getElementById("weatherIcon");
     icon.src = String("images/icons/day/" + iconCode + ".png");
   }
+  function updateLocation(location) {
+    const locationSpan = document.getElementById("locationSpan");
+    locationSpan.innerText = String(location);
+  }
 })(Display || (Display = {}));
 
 // src/main.ts
-function main() {
-  Display.updateWeather();
+async function main() {
+  await Weather.getCodes();
+  await Display.updateWeather();
 }
 main();

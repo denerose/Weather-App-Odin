@@ -42,7 +42,23 @@ export module Weather {
         }
     }
 
+    type Code = {
+        code: number
+        day: string
+        night: string
+        icon: number
+    }
+
     let weather: WeatherType
+
+    let codes: Code[]
+
+    export async function getCodes() {
+    const weatherTableResponse =  await fetch('/weather_conditions.json')
+    const weatherTableJson = await weatherTableResponse.json() as Code[]
+    codes = weatherTableJson
+}
+
 
     export async function fetchWeather(location: string): Promise<WeatherType> {
         const apiURL = 'https://api.weatherapi.com/v1/'
@@ -58,18 +74,19 @@ export module Weather {
         return (weather.current.temp_c)
     }
 
+    export function getReturnedLocation() {
+        return (`${weather.location.name}, ${weather.location.country}`)
+    }
+
     export async function findIconRef() {
         const code = weather.current.condition.code
-        const weatherTableResponse = await fetch('/weather_conditions.json')
-        const weatherTableJson = await weatherTableResponse.json() as {
-            code :number
-            day :string
-            night : string
-            icon : number
-        }[]
-        const findCode = await weatherTableJson.find((item => {if (item.code === code) return true}))
-        console.log(code, findCode.icon)
-        const iconRef =  findCode.icon
-        return(String(iconRef))
+        
+        const findCode = await codes.find((item => { if (item.code === code) return true }))
+        if (findCode !== undefined) {
+            console.log(code, findCode.icon)
+            const iconRef = findCode.icon
+            return (String(iconRef))
+        }
+        else throw Error('weather code undefined')
     }
 }

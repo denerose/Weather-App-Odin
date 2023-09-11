@@ -1,7 +1,10 @@
 import { Display } from "./display"
+import { Weather } from "./weather";
 
-function main() {
-    Display.updateWeather();
+async function main() {
+    await Weather.getCodes();
+    await Display.updateWeather();
+    
 }
 
 main()

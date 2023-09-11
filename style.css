@@ -19,22 +19,47 @@
 body {
     background-color: var(--HEXoxford-blue);
     background-image: url(/images/pexels-johannes-plenio-1118873.jpg);
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: var(--HEXoxford-blue);
 }
 
 header {
-
+    color: rgba(var(--RGBivory), 0.9);
+    -webkit-text-stroke: 1px var(--HEXoxford-blue);
+    text-align: center;
+    background-color: rgba(var(--RGBoxford-blue), 0.3);
+    border-radius: 10px;
+    border: 0.5px solid rgba(var(--RGBoxford-blue), 0.8);
+    margin: auto auto 1rem;
 }
 
 main {
-    
+    text-align: center;
+    background-color: rgba(var(--RGBivory), 0.6);
+    min-width: 50%;
+    margin: auto;
+    border-radius: 10px;
+    border: 0.5px solid rgba(var(--RGBoxford-blue), 0.8);
+    padding: 1rem;
 }
 
 footer {
-
+    text-align: center;
+    font-size: 0.6rem;
+    background-color: rgba(var(--RGBivory), 0.6);
+    max-width: 50%;
+    margin: 1rem auto;
+    border-radius: 10px;
+    border: 0.5px solid rgba(var(--RGBoxford-blue), 0.8);
 }
 
 #app {
-    min-width: 99%;
-    min-height: 80%;}
+    text-align: center;
+    background-color: rgba(var(--RGBivory), 0.6);
+    min-width: 50%;
+    margin: auto;
+    border-radius: 10px;
+    border: 0.5px solid rgba(var(--RGBoxford-blue), 0.8);
+    padding: 1rem;}
