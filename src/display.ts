@@ -3,9 +3,8 @@ import { Weather } from "./weather"
 export module Display {
 
     const app = document.getElementById('app') as HTMLDivElement
-    let searchLocation = "Ballarat"
 
-    export async function updateWeather() {
+    export async function updateWeather(searchLocation) {
         const tempSpan = document.getElementById("tempSpan") as HTMLSpanElement
         await Weather.fetchWeather(searchLocation)
         tempSpan.innerText = String(await Weather.getTempC())
@@ -22,5 +21,17 @@ export module Display {
     function updateLocation(location) {
         const locationSpan = document.getElementById("locationSpan") as HTMLHeadingElement
         locationSpan.innerText = String(location)
+    }
+
+    function search(searchInput) {
+        updateWeather(searchInput);
+    }
+
+    export function addEvents(){
+        const form = document.getElementById("searchForm") as HTMLFormElement
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+            search(form.searchInput.value)
+        })
     }
 }

@@ -47,8 +47,7 @@ var Weather;
 var Display;
 ((Display2) => {
   const app = document.getElementById("app");
-  let searchLocation = "Ballarat";
-  async function updateWeather() {
+  async function updateWeather(searchLocation) {
     const tempSpan = document.getElementById("tempSpan");
     await Weather.fetchWeather(searchLocation);
     tempSpan.innerText = String(await Weather.getTempC());
@@ -65,11 +64,23 @@ var Display;
     const locationSpan = document.getElementById("locationSpan");
     locationSpan.innerText = String(location);
   }
+  function search(searchInput) {
+    updateWeather(searchInput);
+  }
+  function addEvents() {
+    const form = document.getElementById("searchForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      search(form.searchInput.value);
+    });
+  }
+  Display2.addEvents = addEvents;
 })(Display || (Display = {}));
 
 // src/main.ts
 async function main() {
   await Weather.getCodes();
-  await Display.updateWeather();
+  await Display.updateWeather("Ballarat");
+  Display.addEvents();
 }
 main();

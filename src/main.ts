@@ -3,7 +3,8 @@ import { Weather } from "./weather";
 
 async function main() {
     await Weather.getCodes();
-    await Display.updateWeather();
+    await Display.updateWeather("Ballarat");
+    Display.addEvents();
     
 }
 
