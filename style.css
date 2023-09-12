@@ -19,7 +19,7 @@
 body {
     background-color: var(--HEXoxford-blue);
     background-image: url(/images/pexels-johannes-plenio-1118873.jpg);
-    background-size: 100%;
+    background-size: auto 100vh;
     background-repeat: no-repeat;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: var(--HEXoxford-blue);
